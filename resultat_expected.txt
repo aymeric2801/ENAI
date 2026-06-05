@@ -1,0 +1,146 @@
+SECTION 1 — DASHBOARD STREAMLIT
+
+📈 GLOBAL KPIs (Période: 1-2 Juin 2024)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 Impressions totales:     2,406,000
+🖱️ Clicks totaux:            96,400
+💰 Spend total:            $52,990
+🎯 Conversions totales:       3,710
+📈 CTR moyen:                  4.01%
+💵 CPC moyen:                 $0.55
+🎯 CPA moyen:                $14.28
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🏆 TOP 5 CAMPAGNES (par ROAS)
+1. Retargeting_FR      → ROAS: 12.35
+2. Mobile_Gaming_US    → ROAS: 5.80
+3. Summer_Sale_US      → ROAS: 2.60
+4. Beauty_Influencer   → ROAS: 2.45
+5. Back_to_School      → ROAS: 1.62
+
+⚠️ BOTTOM 3 CAMPAGNES (par ROAS)
+1. Finance_App_UK      → ROAS: 0.37 (CRITICAL)
+2. Luxury_Brand_AW     → ROAS: 0.38
+3. Eco_Products_FR     → ROAS: 0.54
+
+📊 Performance par Audience Segment
+• 18-24: CTR 5.2% | CPA $9.80  ✅ BEST
+• 25-34: CTR 3.8% | CPA $14.50
+• 35-50: CTR 2.1% | CPA $28.40  ⚠️ WORST
+• 13-17: CTR 4.1% | CPA $12.20
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SECTION 2 — INSIGHTS IA (Générés par RAG + LLM)
+🤖 RAG-ENHANCED INSIGHTS
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔴 ANOMALIE DETECTED: Campaign "Luxury_Brand_AW"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📉 DIAGNOSTIC:
+Campaign Luxury_Brand_AW shows CRITICAL underperformance:
+- CPC: $5.16 (benchmark: $0.55) → 838% above average
+- CTR: 1.6% (benchmark: 4.0%) → 60% below average
+- CPA: $214 (benchmark: $14) → 15x higher than normal
+
+🎯 CAUSES PROBABLES (RAG Context: "High CPC Diagnosis"):
+1. Audience 35-50 on native inventory typically has 50% higher CPM
+2. UK market benchmarks show native ads require 3x higher budget for learning phase
+3. Creative fatigue detected (2 days same assets with declining CTR)
+
+💡 RECOMMENDATIONS (RAG Best Practices):
+• [HIGH IMPACT] Pause native format for 35-50 segment → switch to display
+• [HIGH IMPACT] Lower bid by 60% to $2.00 CPC target
+• [MEDIUM IMPACT] Refresh creatives every 48 hours
+• [LOW IMPACT] Add retargeting layer to capture warm traffic
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🟡 ANOMALIE DETECTED: Campaign "Finance_App_UK"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📉 DIAGNOSTIC:
+- CPC: $1.33 (93% above avg) + CTR: 4.0% (acceptable)
+- ROAS: 0.37 → $1 spend generates $0.37 revenue
+- Conversion rate from click: 2.5% (benchmark: 5-8%)
+
+💡 RECOMMENDATIONS:
+• [HIGH IMPACT] Implement conversion rate optimization (CRO) on landing page
+• [HIGH IMPACT] Add trust signals (reviews, security badges) — RAG: "Finance ads need SSL+trust badges for +40% CVR"
+• [MEDIUM IMPACT] Switch to video format for 25-34 UK audience
+• [MEDIUM IMPACT] Implement dayparting (peak: 7-9pm weekdays)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ WINNING STRATEGY: Audience 18-24
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🏆 INSIGHT:
+Audience 18-24 delivers BEST efficiency:
+- CTR: 5.2% (+30% vs avg)
+- CPA: $9.80 (-31% vs avg)  
+- Best formats: Interstitial (gaming) + Social (beauty)
+
+💰 OPPORTUNITY:
+• Reallocate 40% budget from 35-50 segment to 18-24
+• Expected incremental conversions: +850 conversions
+• Potential ROAS improvement: +2.4x
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🌍 GEO PERFORMANCE INSIGHTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+• 🇺🇸 US: CPA $11.20 (BEST) — Scale budget +25%
+• 🇫🇷 FR: CPA $13.80 — Maintain current
+• 🇩🇪 DE: CPA $25.80 — Needs optimization
+• 🇬🇧 UK: CPA $52.40 (WORST) — Requires audit
+
+
+
+ACTION PLAN (PRIORITISED)
+📋 ACTION PLAN — RECOMMENDATIONS FOR NEXT 7 DAYS
+
+╔══════════════════════════════════════════════════════════════════╗
+║  HIGH IMPACT ACTIONS (Execute Day 1-2)                          ║
+╠══════════════════════════════════════════════════════════════════╣
+║  ✓ Pause Luxury_Brand_AW (saves $12,200/week)                  ║
+║  ✓ Increase Mobile_Gaming_US budget +50% ($5,250 → $7,875)     ║
+║  ✓ Shift 40% budget from 35-50 to 18-24 audience               ║
+║  ✓ Implement CPA cap at $15 for all campaigns                  ║
+╚══════════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════════╗
+║  MEDIUM IMPACT ACTIONS (Execute Day 3-5)                        ║
+╠══════════════════════════════════════════════════════════════════╣
+║  • Refresh creatives for Black_Friday_TEASE (CTR dropped 8%)   ║
+║  • Add negative keywords for Finance_App_UK campaign           ║
+║  • Test interstitial format for Back_to_School                  ║
+║  • Implement retargeting for 35-50 segment (post-click only)   ║
+╚══════════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════════╗
+║  LOW IMPACT / TEST ACTIONS (Execute Day 6-7)                    ║
+╠══════════════════════════════════════════════════════════════════╣
+║  ○ A/B test: Video vs Native for Travel_DE                     ║
+║  ○ Test 3 new audience segments for Eco_Products_FR            ║
+║  ○ Experiment with Saturday 2-5pm time slot for Beauty         ║
+╚══════════════════════════════════════════════════════════════════╝
+
+📊 PROJECTED OUTCOMES (if all HIGH actions executed):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Spend reduction:      -$8,500 (-16%)
+• Conversions increase: +1,250 (+34%)
+• ROAS improvement:     +2.8x → 4.2x
+• CPA reduction:        $14.28 → $9.45 (-34%)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
