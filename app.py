@@ -48,21 +48,25 @@ st.markdown("""
         color: #ff6b6b;
         font-weight: bold;
     }
+    .upload-box {
+        border: 2px dashed #667eea;
+        border-radius: 10px;
+        padding: 2rem;
+        text-align: center;
+        background-color: #f8f9fa;
+    }
 </style>
 """, unsafe_allow_html=True)
 
 # ============================================
-# FONCTIONS DE CHARGEMENT DES DONNÉES
+# FONCTIONS DE CHARGEMENT DES DONNÉES (mémoire uniquement)
 # ============================================
 
 @st.cache_data
-def load_data(uploaded_file=None):
-    """Charge les données depuis un fichier CSV uploadé ou depuis log.csv"""
-    if uploaded_file is not None:
-        df = pd.read_csv(uploaded_file)
-    else:
-        df = pd.read_csv('log.csv')
-    
+def load_data(uploaded_file):
+    """Charge les données depuis un fichier CSV uploadé (reste en mémoire, jamais écrit sur disque)"""
+    # uploaded_file est un objet BytesIO fourni par Streamlit
+    df = pd.read_csv(uploaded_file)
     df['date'] = pd.to_datetime(df['date'])
     # Calcul des métriques dérivées
     df['ctr'] = (df['clicks'] / df['impressions'] * 100).round(2)
@@ -265,7 +269,7 @@ class AdTechRAG:
         return len(split_docs)
     
     def save_index(self, path="./faiss_index"):
-        """Save FAISS index to disk"""
+        """Save FAISS index to disk (optionnel, pour accélérer les prochains lancements)"""
         if self.vectorstore:
             self.vectorstore.save_local(path)
             st.success(f"💾 FAISS index saved to {path}")
@@ -501,11 +505,11 @@ def display_rich_dashboard(df, recommendations=None):
         st.success(f"{i}. **{campaign}** - ROAS: {roas:.2f}x")
 
 # ============================================
-# FONCTION PRINCIPALE AVEC RAG
+# FONCTION PRINCIPALE SANS FICHIER PAR DÉFAUT
 # ============================================
 
 def main():
-    """Fonction principale avec intégration RAG"""
+    """Fonction principale – exige un fichier uploadé, ne stocke rien sur disque"""
     
     # Titre principal
     st.markdown('<div class="main-header">📊 Ad Campaign Analytics with AI Consultant</div>', unsafe_allow_html=True)
@@ -520,28 +524,37 @@ def main():
     if 'df' not in st.session_state:
         st.session_state.df = None
     
-    # Upload de fichier
-    uploaded_file = st.file_uploader("📁 Chargez votre fichier CSV", type=['csv'])
+    # Zone de dépôt de fichier – obligatoire
+    st.markdown("### 📁 Déposez votre fichier CSV pour commencer l'analyse")
+    st.markdown("""
+    <div class="upload-box">
+        <p style="font-size: 1.2rem;">⬇️ Déposez votre fichier CSV ci-dessous</p>
+        <p style="color: #667eea;">Le fichier reste en mémoire et n'est jamais sauvegardé sur le disque.</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    uploaded_file = st.file_uploader("Choisir un fichier CSV", type=['csv'], label_visibility="collapsed")
     
     if uploaded_file is not None:
         try:
-            # Chargement des données
-            df = load_data(uploaded_file)
-            df = calculate_kpis(df)
+            # Chargement des données – directement depuis le buffer mémoire
+            with st.spinner("📊 Chargement et analyse du fichier..."):
+                df = load_data(uploaded_file)
+                df = calculate_kpis(df)
             
-            # Chargement de la knowledge base
+            # Chargement de la knowledge base (en mémoire)
             knowledge_base = load_knowledge_base()
             
-            # Initialisation du système RAG
+            # Initialisation du système RAG (l'index FAISS peut être mis en cache sur disque,
+            # mais c'est une optimisation technique, pas le fichier utilisateur)
             if st.session_state.rag_system is None:
                 with st.spinner("🔧 Initialisation du système RAG avec FAISS + LangChain..."):
                     rag = AdTechRAG()
-                    
-                    # Construction de l'index FAISS
                     st.info("📚 Construction de l'index FAISS à partir de la base de connaissances...")
                     rag.load_and_index_documents(knowledge_base)
+                    # Sauvegarde de l'index FAISS (optionnel, pour accélérer les prochains lancements)
+                    # Ceci n'est pas le fichier CSV utilisateur, c'est un cache technique.
                     rag.save_index()
-                    
                     st.session_state.rag_system = rag
             
             # Stockage dans session state
@@ -616,31 +629,24 @@ def main():
                         st.rerun()
             
         except Exception as e:
-            st.error(f"Erreur: {str(e)}")
+            st.error(f"Erreur lors du traitement du fichier : {str(e)}")
             st.info("Assurez-vous que votre fichier CSV contient les colonnes nécessaires: date, campaign_name, impressions, clicks, spend, conversions, business_goal, country, ad_format, audience_segment")
-    
     else:
-        # Si pas de fichier uploadé, essayer de charger log.csv
-        try:
-            df = load_data()
-            df = calculate_kpis(df)
-            
-            st.info("📊 Utilisation des données de démonstration (log.csv)")
-            st.session_state.df = df
-            st.session_state.data_loaded = True
-            
-            display_rich_dashboard(df)
-            
-        except FileNotFoundError:
-            st.info("👋 Bienvenue ! Veuillez charger un fichier CSV pour commencer l'analyse.")
-            st.markdown("""
-            ### Format attendu du CSV:
-            - date, campaign_name, impressions, clicks, spend, conversions, business_goal, country, ad_format, audience_segment
-            
-            ### Exemple:
-            date,campaign_name,impressions,clicks,spend,conversions,business_goal,country,ad_format,audience_segment
-            2024-01-01,Campaign A,10000,500,1000,50,2500,FR,video,18-24
-            """)
+        # Aucun fichier uploadé – on affiche seulement les instructions
+        st.info("👋 **Bienvenue !** Pour commencer, veuillez déposer un fichier CSV ci-dessus.")
+        st.markdown("""
+        ### Format attendu du CSV:
+        - `date`, `campaign_name`, `impressions`, `clicks`, `spend`, `conversions`, `business_goal`, `country`, `ad_format`, `audience_segment`
+        
+        ### Exemple de lignes:
+        ```csv
+        date,campaign_name,impressions,clicks,spend,conversions,business_goal,country,ad_format,audience_segment
+        2024-01-01,Campaign A,10000,500,1000,50,2500,FR,video,18-24
+        2024-01-02,Campaign B,15000,750,1500,75,3750,US,display,25-34
+
+🔒 Confidentialité
+Votre fichier reste uniquement en mémoire pendant la session. Il n'est jamais écrit sur le disque du serveur.
+""")
 
 if __name__ == "__main__":
     main()
