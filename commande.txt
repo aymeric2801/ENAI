@@ -1,0 +1,6 @@
+chmod +x deploy.sh
+./deploy.sh
+
+
+or 
+streamlit run app.py

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Campaign Analytics - Dashboard avec Publicité</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        /* Header avec ad unit */
+        .top-ad {
+            background: white;
+            text-align: center;
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .ad-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 90px;
+            background: #fafafa;
+            border: 1px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+        
+        /* Rectangle ad unit style */
+        .rectangle-ad {
+            width: 728px;
+            height: 90px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 4px;
+        }
+        
+        /* Container principal */
+        .main-container {
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        
+        /* Streamlit iframe */
+        .streamlit-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .streamlit-container:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        iframe {
+            width: 100%;
+            height: 850px;
+            border: none;
+            display: block;
+        }
+        
+        /* Sidebar ad */
+        .sidebar-ad {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 160px;
+            height: 600px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-ad:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        .sidebar-ad-content {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .sidebar-ad-content .ad-label {
+            font-size: 10px;
+            opacity: 0.8;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Footer ad */
+        .footer-ad {
+            background: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .footer-ad .ad-container {
+            max-width: 728px;
+            margin: 0 auto;
+        }
+        
+        .small-rectangle {
+            height: 60px;
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .sidebar-ad {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .rectangle-ad {
+                width: 100%;
+                height: auto;
+                min-height: 50px;
+                padding: 15px;
+            }
+            
+            .main-container {
+                padding: 0 10px;
+            }
+            
+            iframe {
+                height: 600px;
+            }
+        }
+        
+        /* Loading animation */
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Banner Ad Unit -->
+    <div class="top-ad">
+        <div class="ad-container">
+            <div class="rectangle-ad">
+                <span>📢 PUBLICITÉ - Votre annonce ici (728x90)</span>
+            </div>
+            <!-- 
+            EXEMPLE POUR GOOGLE ADSENSE:
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:728px;height:90px"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXX"
+                 data-ad-slot="XXXXXXXXXX"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            -->
+        </div>
+    </div>
+    
+    <!-- Sidebar Ad Unit -->
+    <div class="sidebar-ad">
+        <div class="sidebar-ad-content">
+            <div class="ad-label">Publicité</div>
+            <div style="font-size: 24px; margin: 20px 0;">📢</div>
+            <div>Votre annonce ici</div>
+            <div style="font-size: 10px; margin-top: 10px;">(160x600)</div>
+        </div>
+    </div>
+    
+    <!-- Main Content avec Streamlit -->
+    <div class="main-container">
+        <div class="streamlit-container">
+            <iframe 
+                src="http://localhost:8501" 
+                title="Ad Campaign Analytics Dashboard"
+                loading="lazy">
+            </iframe>
+            <!-- 
+            POUR LA PRODUCTION, REMPLACER PAR:
+            src="https://ton-app-streamlit.com"
+            -->
+        </div>
+    </div>
+    
+    <!-- Footer Ad Unit -->
+    <div class="footer-ad">
+        <div class="ad-container">
+            <div class="rectangle-ad small-rectangle">
+                📢 PUBLICITÉ - Bannière footer (728x60)
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Option: Afficher un message si l'iframe ne charge pas
+        const iframe = document.querySelector('iframe');
+        iframe.onerror = function() {
+            console.log('Erreur de chargement de Streamlit');
+            // Afficher un message d'erreur élégant
+        };
+        
+        iframe.onload = function() {
+            console.log('Streamlit chargé avec succès');
+        };
+    </script>
+</body>
+</html>
