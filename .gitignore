@@ -1,0 +1,26 @@
+# Streamlit secrets (API keys) - IMPORTANT !
+.streamlit/secrets.toml
+.streamlit/
+
+# FAISS index (too large for Git)
+faiss_index/
+*.faiss  
+*.pkl
+
+# IDE  
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store   
+Thumbs.db
+
+# Logs 
+*.log   
+log.csv
+
+# Deployment
+deploy.sh
